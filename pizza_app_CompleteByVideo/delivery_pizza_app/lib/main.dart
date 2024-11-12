@@ -1,8 +1,11 @@
 import 'package:delivery_pizza_app/admin/add_food.dart';
+import 'package:delivery_pizza_app/admin/admin_login.dart';
 import 'package:delivery_pizza_app/admin/home_admin.dart';
 import 'package:delivery_pizza_app/pages/bottomnav.dart';
 import 'package:delivery_pizza_app/pages/home.dart';
+import 'package:delivery_pizza_app/pages/login.dart';
 import 'package:delivery_pizza_app/pages/onboard.dart';
+import 'package:delivery_pizza_app/pages/profile.dart';
 import 'package:delivery_pizza_app/widget_support/app_constant.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +46,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: BottomNav(),
+      home: Login(),
     );
   }
 }

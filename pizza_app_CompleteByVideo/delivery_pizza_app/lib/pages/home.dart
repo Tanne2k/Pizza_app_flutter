@@ -200,7 +200,7 @@ class _HomeState extends State<Home> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Xin chào, Thịnh!",
+                        "Xin chào!",
                         style: AppWidget.boldTextFieldStyle(),
                       ),
                       Container(

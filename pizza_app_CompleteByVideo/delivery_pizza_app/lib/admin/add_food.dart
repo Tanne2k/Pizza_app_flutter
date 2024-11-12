@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:delivery_pizza_app/admin/home_admin.dart';
 import 'package:delivery_pizza_app/service/database.dart';
 import 'package:delivery_pizza_app/widget_support/widget_support.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -262,6 +263,10 @@ class _AddFoodState extends State<AddFood> {
                     child: GestureDetector(
                       onTap: () {
                         uploadItem();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeAdmin()));
                       },
                       child: Center(
                         child: Text(

@@ -21,12 +21,13 @@ class _BottomNavState extends State<BottomNav> {
   late Profile profile;
   late Order order;
   late Wallet wallet;
+
   @override
   void initState() {
     homePage = Home();
     order = Order();
-    profile = Profile();
     wallet = Wallet();
+    profile = Profile();
     pages = [homePage, order, wallet, profile];
     super.initState();
   }
