@@ -56,7 +56,7 @@ class _AddFoodState extends State<AddFood> {
         ScaffoldMessenger.of(context).showSnackBar((SnackBar(
           backgroundColor: Colors.orangeAccent,
           content: Text(
-            "Thêm sản phẩm thanh công!",
+            "Thêm sản phẩm thành công!",
             style: TextStyle(fontSize: 18),
           ),
         )));

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:delivery_pizza_app/service/auth.dart';
 import 'package:delivery_pizza_app/service/shared_pref.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -19,14 +18,43 @@ class _ProfileState extends State<Profile> {
   final ImagePicker _picker = ImagePicker();
   File? selectedImage;
 
-  Future getImage() async {
+  // Future getImage() async {
+  //   var image = await _picker.pickImage(source: ImageSource.gallery);
+
+  //   selectedImage = File(image!.path);
+  //   setState(() {
+  //     uploadItem();
+  //   });
+  // }
+
+  Future<void> getImage() async {
     var image = await _picker.pickImage(source: ImageSource.gallery);
 
-    selectedImage = File(image!.path);
-    setState(() {
-      uploadItem();
-    });
+    if (image != null) {
+      selectedImage = File(image.path);
+      setState(() {
+        uploadItem();
+      });
+    } else {
+      // Xử lý khi người dùng không chọn ảnh
+      print("No image selected.");
+    }
   }
+
+  // uploadItem() async {
+  //   if (selectedImage != null) {
+  //     String addId = randomAlphaNumeric(10);
+
+  //     Reference firebaseStorageRef =
+  //         FirebaseStorage.instance.ref().child("blogImages").child(addId);
+  //     final UploadTask task = firebaseStorageRef.putFile(selectedImage!);
+
+  //     var downLoadUrl = await (await task).ref.getDownloadURL();
+
+  //     await SharedPreferenceHelper().saveUserProfile(downLoadUrl);
+  //     setState(() {});
+  //   }
+  // }
 
   uploadItem() async {
     if (selectedImage != null) {
@@ -39,7 +67,11 @@ class _ProfileState extends State<Profile> {
       var downLoadUrl = await (await task).ref.getDownloadURL();
 
       await SharedPreferenceHelper().saveUserProfile(downLoadUrl);
-      setState(() {});
+
+      // Kiểm tra xem widget còn mounted hay không trước khi gọi setState()
+      if (mounted) {
+        setState(() {});
+      }
     }
   }
 
