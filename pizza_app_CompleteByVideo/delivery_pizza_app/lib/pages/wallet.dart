@@ -43,7 +43,7 @@ class _WalletState extends State<Wallet> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: wallet == null
-            ? CircularProgressIndicator()
+            ? const CircularProgressIndicator()
             : Container(
                 margin: EdgeInsets.only(top: 50),
                 child: Column(
@@ -61,12 +61,12 @@ class _WalletState extends State<Wallet> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(color: Color(0xFFF2F2F2)),
+                      decoration: const BoxDecoration(color: Color(0xFFF2F2F2)),
                       child: Row(
                         children: [
                           Image.asset(
@@ -75,7 +75,7 @@ class _WalletState extends State<Wallet> {
                             width: 60,
                             fit: BoxFit.cover,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 40,
                           ),
                           Column(
@@ -217,12 +217,13 @@ class _WalletState extends State<Wallet> {
               paymentSheetParameters: SetupPaymentSheetParameters(
                   paymentIntentClientSecret: paymentIntent!['client_secret'],
                   style: ThemeMode.dark,
-                  merchantDisplayName: 'Hung Thinh'))
+                  merchantDisplayName: 'Adnan'))
           .then((value) {});
 
+      //now finally display payment sheeet
       displayPaymentSheet(amount);
     } catch (e, s) {
-      print('exception: $e$s');
+      print('exception:$e$s');
     }
   }
 
@@ -262,32 +263,36 @@ class _WalletState extends State<Wallet> {
     }
   }
 
+  //  Future<Map<String, dynamic>>
   createPaymentIntent(String amount, String currency) async {
     try {
       Map<String, dynamic> body = {
         'amount': calculateAmount(amount),
         'currency': currency,
-        'Payment_method_types': 'card',
+        'payment_method_types[]': 'card'
       };
+
       var response = await http.post(
-        Uri.parse('http.//api.stripe.com/v1/payment_intents'),
+        Uri.parse('https://api.stripe.com/v1/payment_intents'),
         headers: {
           'Authorization': 'Bearer $secretKey',
-          'Content_Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: body,
       );
-      print('Payment intent body: ---> ${response.body.toString()}');
+      // ignore: avoid_print
+      print('Payment Intent Body->>> ${response.body.toString()}');
       return jsonDecode(response.body);
     } catch (err) {
+      // ignore: avoid_print
       print('err charging user: ${err.toString()}');
     }
   }
 
   calculateAmount(String amount) {
-    final calculatedAmount = (int.parse(amount) * 100);
+    final calculatedAmout = (int.parse(amount) * 100);
 
-    return calculatedAmount.toString();
+    return calculatedAmout.toString();
   }
 
   Future openEdit() => showDialog(
